@@ -1,0 +1,23 @@
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [342:64390]
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -p icmp -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+-A INPUT -i eth0 -p esp -j ACCEPT
+-A INPUT -i eth0 -p udp -m udp --dport 500 -j ACCEPT
+-A INPUT -i eth0 -p udp -m udp --dport 4500 -j ACCEPT
+-A INPUT -j REJECT --reject-with icmp-host-prohibited
+#
+-A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A FORWARD -s 10.28.0.0/24 -j ACCEPT
+-A FORWARD -j REJECT --reject-with icmp-host-prohibited
+COMMIT
+*nat
+:PREROUTING ACCEPT [24:10065]
+:INPUT ACCEPT [5:241]
+:OUTPUT ACCEPT [18:1422]
+:POSTROUTING ACCEPT [18:1422]
+-A POSTROUTING -s 10.28.0.0/24 -o eth0 -j MASQUERADE
+COMMIT
