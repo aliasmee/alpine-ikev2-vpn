@@ -69,7 +69,10 @@ VDqjxrbBG+NdgjQm71vCNayb0gwv0qPkU5YLnY8pqloltN6l4fBqkUEqKvqSwA==
 4. Copy this certificate to the remote client and name it xxx.cert or xxx.cert（Note：Windows need to modify the suffix pem for cer can be installed）
 example:<br>
 ![](https://github.com/aliasmee/alpine-ikev2-vpn/blob/master/IKEv2_enable_example.png?raw=true)
-6. Connect vpn it！
+
+5. Connect vpn it！
+Open the network settings, create a new IKEv2 protocol VPN, enter the default VPN account and password, or use the custom user that starts the container to connect to VPN.
+Create new VPN method is not described here ^_^.
 
 ## Other Tips
 1. If you want to add VPN users, you can run the following command to enter the container and edit the ipsec.secrets file.
