@@ -41,4 +41,6 @@ EXPOSE 4500:4500/udp
 
 # Privilege mode
 #CMD ["/usr/bin/supervisord"]
-ENTRYPOINT ["/usr/bin/supervisord", "--nodaemon", "--configuration", "/etc/supervisord.conf"]
+ADD init.sh /init.sh
+RUN chmod +x /init.sh
+ENTRYPOINT ["/init.sh","/usr/bin/supervisord", "--nodaemon", "--configuration", "/etc/supervisord.conf"]
