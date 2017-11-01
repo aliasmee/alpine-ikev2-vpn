@@ -1,9 +1,9 @@
-# A runing IKEv2 VPN's container on apline linux system
+# A runing IKEv2 VPN's container on alpine linux system
 ## Overview ##
 Let the IKEv2 vpn service run in the Docker container, do not need too much configuration, you just take the mirror on the Docker server, then run a container, the container generated certificate copy installed on your client, you can connect vpn The server. Welcome everyone's discussion！:blush:
 
 ## Features
-* based on apline image and Using supervisor to protect the IPSec process
+* based on alpine image and Using supervisor to protect the IPSec process
 * StrongSwan provides ikev2 VPN service
 * In addition to Android and Linux, but other devices(Winodws 7+,Mac,iOS) by default comes with IKEv2 dial clients
 * When the container is run, the certificate file is dynamically generated based on the environment variable (last version)
