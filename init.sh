@@ -3,4 +3,8 @@ set -e
 # Preload iptables,Rule lost when preventing restart of container!
 iptables-restore < /etc/sysconfig/iptables
 
+# Repair gcp container restart, can not access google family bucket(disable pmtu discovery)
+sysctl -w net.ipv4.ip_no_pmtu_disc=1
+
+
 exec "$@"
