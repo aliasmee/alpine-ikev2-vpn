@@ -19,7 +19,7 @@ ipsec pki --pub --in client.pem | ipsec pki --issue --cacert ca.cert.pem --cakey
 \cp client.pem  /usr/local/etc/ipsec.d/private/
 
 # Dynamic modification of IPSec.conf
-sed -i "s/\$LEFTID/$HOSTIP/g" /usr/local/etc/ipsec.conf
+# sed -i "s/\$LEFTID/$HOSTIP/g" /usr/local/etc/ipsec.conf
 
 # Enable system forward
 sysctl -w net.ipv4.ip_forward=1

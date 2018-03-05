@@ -31,12 +31,12 @@ conn IOS_Mac_IKEv2
     esp=aes256-sha256,3des-sha1! 
     rekey=no 
     left=%defaultroute 
-    leftid=$LEFTID
+    leftid=$HOST_IP
     leftsendcert=always 
     leftsubnet=0.0.0.0/0 
     leftcert=server.cert.pem 
-    right=%any 
-    rightauth=eap-mschapv2 
+    right=%any
+    rightauth=$EAP_TYPE
     rightsourceip=10.28.0.0/24 
     rightsendcert=never 
     eap_identity=%any 
