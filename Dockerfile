@@ -4,13 +4,13 @@ FROM alpine:latest
 MAINTAINER @aliasmee
 
 # Define a dynamic variable for Certificate CN
-ENV HOSTIP ''
+ENV HOST_IP ''
 ENV VPNUSER ''
 ENV VPNPASS ''
 ENV TZ=Asia/Shanghai
 
 # strongSwan Version
-ARG SS_VERSION="https://download.strongswan.org/strongswan-5.5.3.tar.gz"
+ARG SS_VERSION="https://download.strongswan.org/strongswan-5.6.2.tar.gz"
 
 # download en
 ARG BUILD_DEPS="gettext"
@@ -32,7 +32,6 @@ RUN apk --update add build-base curl bash iproute2 iptables-dev openssl openssl-
 RUN mkdir -p /data/key_files
 
 # Copy configure file to ipsec\iptables
-#COPY ./conf/ipsec.conf /usr/local/etc/ipsec.conf 
 COPY ./conf/strongswan.conf /usr/local/etc/strongswan.conf 
 COPY ./conf/ipsec.secrets /usr/local/etc/ipsec.secrets
 COPY ./conf/iptables /etc/sysconfig/iptables
@@ -44,8 +43,7 @@ COPY ./conf/ipsec.conf.template ipsec.conf.template
 COPY ./scripts/vpn /usr/bin/vpn
 
 # Open udp 500\4500 port
-EXPOSE 500:500/udp
-EXPOSE 4500:4500/udp
+EXPOSE 500:500/udp 4500:4500/udp
 
 # Privilege mode
 #CMD ["/usr/bin/supervisord"]

@@ -7,7 +7,7 @@ iptables-restore < /etc/sysconfig/iptables
 sysctl -w net.ipv4.ip_forward=1
 sysctl -w net.ipv4.ip_no_pmtu_disc=1
 
-# Setting eap-radius config file
+# Setting eap-radius config info
 if [ -z "$ACCOUNTING" ]; then
   export ACCOUNTING=no
 fi
@@ -29,9 +29,9 @@ envsubst '
           ${RADIUS_PORT}
           ${RADIUS_SERVER}
           ${RADIUS_SECRET}
-         ' < eap-radius.conf.template > /usr/local/etc/strongswan.d/charon/eao-radius.conf
+         ' < eap-radius.conf.template > /usr/local/etc/strongswan.d/charon/eap-radius.conf
 
-# Setting eap auth 
+# Setting eap auth type
 if [ -z "$EAP_TYPE" ]; then
   export EAP_TYPE='eap-mschapv2'
 fi
@@ -46,4 +46,3 @@ envsubst '
          ' < ipsec.conf.template > /usr/local/etc/ipsec.conf
 
 exec "$@"
-
