@@ -16,6 +16,18 @@ Let the IKEv2 vpn service run in the Docker container, do not need too much conf
 * Support eap authentication radius server(EAP-RADIUS)
 
 ## Usage examples
+### Install using the convenience script `recommended approach`
+
+1. run this script
+```bash
+# ./onekey_run_vpnserver.sh 'new_vpnuser' 'new_password'
+```
+  ** $1: vpn user
+  ** $2: vpn password
+
+
+### Follow steps to install step by step
+
 1. Clone git
 ```Bash
 # git clone https://github.com/aliasmee/alpine-ikev2-vpn.git
@@ -35,7 +47,7 @@ Then run `docker run` command.
 
 * eap-mschapv2 mode
 ```bash
-# docker run -itd --privileged -v /lib/modules:/lib/modules -e HOST_IP='Your's Public network IP' -e VPNUSER=jack -e VPNPASS="jack&opsAdmin" -p 500:500/udp -p 4500:4500/udp --name=ikev2-vpn ikev2
+# docker run --restart=always -itd --privileged -v /lib/modules:/lib/modules -e HOST_IP='Your's Public network IP' -e VPNUSER=jack -e VPNPASS="jack&opsAdmin" -p 500:500/udp -p 4500:4500/udp --name=ikev2-vpn ikev2
 ```
     **HOST_IP :Public network must be your host IP**
     **[$VPNUSER] & [$VPNPASS] env Optional,The function is to customize the user name and password to connect to the VPN service.**
@@ -95,8 +107,18 @@ Create new VPN method is not described here ^_^.
 bash-4.3# vi /usr/local/etc/ipsec.secrets
 ```
     **Pattern: testUserOne %any : EAP "testOnePass" **
+
+
+```
+bash-4.3# ipsec rereadsecrets
+```
+
 ## Plan list
 * Dynamically generated based on the environment variable （Completed）
+* Support one-click installation (Completed)
+* AAA Integrate Radius provides centralized Authentication, Authorization, and Accounting (Completed)
+* Clients can connect without having to install a certificate
+* Support for adding and deleting user functions
 
 ## Currently supported client device 
 Only test for the following client device system，You can test on the other system versions and feedback ！<br>
@@ -107,8 +129,7 @@ Only test for the following client device system，You can test on the other sys
 `Android`：(Download strongSwan APK)
 
 ## Authors
-Name:	Yifeng Han<br>
-e-mail:	 xhanyifeng@gmail.com
+Name:	aliasmee<br>
 
 ## Licensing
 This project is licensed under the GNU General Public License - see the [LICENSE.md](https://github.com/aliasmee/IKEv2-radius-vpn/blob/master/LICENSE) file for details
