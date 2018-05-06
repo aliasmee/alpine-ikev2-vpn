@@ -18,12 +18,12 @@ Let the IKEv2 vpn service run in the Docker container, do not need too much conf
 ## Usage examples
 ### Install using the convenience script `recommended approach`
 
-1. run this script
+1. As follows
 ```bash
 # ./onekey_run_vpnserver.sh 'new_vpnuser' 'new_password'
 ```
-  ** $1: vpn user
-  ** $2: vpn password
+    **$1: vpn user
+    **$2: vpn password
 
 
 ### Follow steps to install step by step
