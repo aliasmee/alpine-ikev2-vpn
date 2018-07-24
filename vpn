@@ -1,0 +1,42 @@
+#!/bin/bash
+#Author by Yifeng Han
+#Time 2017-07-30 00:30
+
+# Create certificate
+#cd /data/key_files
+#ipsec pki --gen --outform pem > ca.pem
+#ipsec pki --self --in ca.pem --dn "C=cn, O=ilove, CN=Free vpn" --ca --lifetime 3650 --outform pem >ca.cert.pem
+#ipsec pki --gen --outform pem > server.pem
+#ipsec pki --gen --outform pem > client.pem
+#ipsec pki --pub --in server.pem | ipsec pki --issue --lifetime 1200 --cacert ca.cert.pem --cakey ca.pem --dn "C=cn, O=ilove, CN=$HOSTIP" --san="$HOSTIP" --flag serverAuth --flag ikeIntermediate --outform pem > server.cert.pem
+#ipsec pki --pub --in client.pem | ipsec pki --issue --cacert ca.cert.pem --cakey ca.pem --dn "C=cn, O=ilove, CN=Free vpn client" --outform pem > client.cert.pem
+
+# Copy certificate to ipsec dir
+#\cp ca.cert.pem /usr/local/etc/ipsec.d/cacerts/
+#\cp server.cert.pem /usr/local/etc/ipsec.d/certs/
+#\cp server.pem /usr/local/etc/ipsec.d/private/
+#\cp client.cert.pem /usr/local/etc/ipsec.d/certs/
+#\cp client.pem  /usr/local/etc/ipsec.d/private/
+
+# Dynamic modification of IPSec.conf
+sed -i "s/\$LEFTID/$HOSTIP/g" /usr/local/etc/ipsec.conf
+
+# Enable system forward
+sysctl -w net.ipv4.ip_forward=1
+sysctl -w net.ipv4.ip_no_pmtu_disc=1
+
+# Load iptables rules
+iptables-restore < /etc/sysconfig/iptables
+
+# Custom connection VPN username password
+sed -i "$ a $VPNUSER %any : EAP '$VPNPASS'"  /usr/local/etc/ipsec.secrets
+
+# Reboot ipsec vpn
+supervisorctl restart ipsec
+
+# View the certificate contents and save file
+#echo "Below the horizontal line is the content of the certificate. Copy the content to a file in the .cert suffix format. Such as: vpn.cert"
+#echo "______________________________________________________________"
+#cat /data/key_files/ca.cert.pem
+
+echo "Congratulations, every successful step. Now, only fly it!"

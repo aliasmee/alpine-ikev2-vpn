@@ -1,0 +1,1 @@
+docker run -itd --restart=always --privileged -v /lib/modules:/lib/modules -e HOST_IP='io.xio2.ml' -e VPNUSER=jack -e VPNPASS="ijackman" -e ACCOUNTING='yes' -e RADIUS_PORT='1812' -e RADIUS_SERVER='61' -e RADIUS_SECRET='.456' -e EAP_TYPE='eap-radius' -p 500:500/udp -p 4500:4500/udp --name=ikev2 e4d66c05c64f
