@@ -137,3 +137,6 @@ This project is licensed under the GNU General Public License - see the [LICENSE
 ## Acknowledgments
 https://www.strongswan.org/
 
+## Stargazers over time
+
+[![Stargazers over time](https://starcharts.herokuapp.com/aliasmee/alpine-ikev2-vpn)](https://starcharts.herokuapp.com/aliasmee/alpine-ikev2-vpn)
