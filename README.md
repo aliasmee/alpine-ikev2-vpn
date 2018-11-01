@@ -139,4 +139,4 @@ https://www.strongswan.org/
 
 ## Stargazers over time
 
-[![Stargazers over time](https://starcharts.herokuapp.com/aliasmee/alpine-ikev2-vpn)](https://starcharts.herokuapp.com/aliasmee/alpine-ikev2-vpn)
+[![Stargazers over time](https://starcharts.herokuapp.com/aliasmee/alpine-ikev2-vpn.svg)](https://starcharts.herokuapp.com/aliasmee/alpine-ikev2-vpn)
