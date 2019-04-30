@@ -126,8 +126,11 @@ Create new VPN method is not described here ^_^.
 bash-4.3# vi /usr/local/etc/ipsec.secrets
 ```
 
-`Pattern:` testUserOne %any : EAP "testOnePass"
-
+`Pattern example:`
+```
+testUserOne %any : EAP "testOnePass"
+testUserxxx %any : EAP "testpass"
+```
 
 ```bash
 bash-4.3# ipsec rereadsecrets
