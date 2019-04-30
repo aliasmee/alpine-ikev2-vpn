@@ -16,7 +16,7 @@ Let the IKEv2 vpn service run in the Docker container, do not need too much conf
 * Support eap authentication radius server(EAP-RADIUS)
 
 ## Usage examples
-### Install using the convenience script `recommended approach`
+### Install From Script `recommended approach`
 
 1. As follows
 ```bash
@@ -26,42 +26,49 @@ Let the IKEv2 vpn service run in the Docker container, do not need too much conf
     **$2: vpn password
 
 
-### Follow steps to install step by step
+### Install From Git source
 
-1. Clone git
+1. Make a Image
+
+[Method 1] Using git source code
+
 ```Bash
 # git clone https://github.com/aliasmee/alpine-ikev2-vpn.git
 ```
-Or use `docker pull` to download images to the local
-```Bash
-# docker pull hanyifeng/alpine-ikev2-vpn
-```
-Then run `docker run` command.
 
+build image:
 
-2. Using docker build can create an automated build image,Then use the following command to run
 ```Bash
 # cd alpine-ikev2-vpn/
 # docker build -t ikev2 .
 ```
 
+[Method 2] Using `docker pull` download images to the local from dockerhub
+```Bash
+# docker pull hanyifeng/alpine-ikev2-vpn
+```
+
+After building the image, run `docker run` command
+
+2. Start the service with the following command
+
 * eap-mschapv2 mode
 ```bash
 # docker run --restart=always -itd --privileged -v /lib/modules:/lib/modules -e HOST_IP='Your's Public network IP' -e VPNUSER=jack -e VPNPASS="jack&opsAdmin" -p 500:500/udp -p 4500:4500/udp --name=ikev2-vpn ikev2
 ```
-    **HOST_IP :Public network must be your host IP**
-    **[$VPNUSER] & [$VPNPASS] env Optional,The function is to customize the user name and password to connect to the VPN service.**
-    **Defalut vpnuser is testUserOne,passwd is testOnePass**
+    *HOST_IP :Public network must be your host IP*
+    *[$VPNUSER] & [$VPNPASS] env Optional,The function is to customize the user name and password to connect to the VPN service.*
+    *Defalut vpnuser is testUserOne,passwd is testOnePass*
 
 * eap-radius mode
 ```bash
 # docker run -itd --privileged -v /lib/modules:/lib/modules -e HOST_IP='Your's Public network IP' -e ACCOUNTING='yes' -e RADIUS_PORT='1812' -e RADIUS_SERVER='Your's radius server IP' -e RADIUS_SECRET='xxxxxxx' -e EAP_TYPE='eap-radius' -p 500:500/udp -p 4500:4500/udp --name=ikev2-vpn ikev2
 ```
-    **ACCOUNTING: eap-radius mode Required.Value must be 'yes'
-    **RADIUS_PORT: radius server running port. Required.
-    **RADIUS_SERVER: radius server ip. Required.
-    **RADIUS_SECRET: radius nas client psk. Required.
-    **EAP_TYPE: ikev2 auth mode. Required.
+    *ACCOUNTING: eap-radius mode Required.Value must be 'yes'
+    *RADIUS_PORT: radius server running port. Required.
+    *RADIUS_SERVER: radius server ip. Required.
+    *RADIUS_SECRET: radius nas client psk. Required.
+    *EAP_TYPE: ikev2 auth mode. Required.
 
 3. Use the following command to generate the certificate and view the certificate contents
 ```Bash
@@ -129,7 +136,7 @@ Only test for the following client device system，You can test on the other sys
 `Android`：(Download strongSwan APK)
 
 ## Authors
-Name:	aliasmee<br>
+Name:	aliasmee
 
 ## Licensing
 This project is licensed under the GNU General Public License - see the [LICENSE.md](https://github.com/aliasmee/IKEv2-radius-vpn/blob/master/LICENSE) file for details
