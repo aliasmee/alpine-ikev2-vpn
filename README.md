@@ -27,7 +27,7 @@ Let the IKEv2 vpn service run in the Docker container, do not need too much conf
 
 `$2:` vpn password
 
-*WARNING: As root privileged running*
+*`WARNING`: As root privileged running*
 
 ### Install From Git source
 
@@ -60,9 +60,9 @@ After building the image, run `docker run` command.
 # docker run --restart=always -itd --privileged -v /lib/modules:/lib/modules -e HOST_IP='Your's Public network IP' -e VPNUSER=jack -e VPNPASS="jack&opsAdmin" -p 500:500/udp -p 4500:4500/udp --name=ikev2-vpn ikev2
 ```
 
-*HOST_IP:* `Public network must be your host IP`
+`HOST_IP:` Public network must be your host IP
 
-*[Optional env] VPNUSER & VPNPASS :* `The function is to customize the user name and password to connect to the VPN service.`
+`VPNUSER & VPNPASS :` The function is to customize the user name and password to connect to the VPN service.[Optional env]
 
 Defalut vpnuser is `testUserOne`,passwd is `testOnePass`
 
