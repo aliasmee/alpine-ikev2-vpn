@@ -25,6 +25,7 @@ Let the IKEv2 vpn service run in the Docker container, do not need too much conf
     **$1: vpn user
     **$2: vpn password
 
+*WARNING: As root privileged running*
 
 ### Install From Git source
 
@@ -48,27 +49,29 @@ build image:
 # docker pull hanyifeng/alpine-ikev2-vpn
 ```
 
-After building the image, run `docker run` command
+After building the image, run `docker run` command.
 
-2. Start the service with the following command
+2. Start the service with the following command (Support radius AAA)
 
 * eap-mschapv2 mode
 ```bash
 # docker run --restart=always -itd --privileged -v /lib/modules:/lib/modules -e HOST_IP='Your's Public network IP' -e VPNUSER=jack -e VPNPASS="jack&opsAdmin" -p 500:500/udp -p 4500:4500/udp --name=ikev2-vpn ikev2
 ```
-    *HOST_IP :Public network must be your host IP*
-    *[$VPNUSER] & [$VPNPASS] env Optional,The function is to customize the user name and password to connect to the VPN service.*
-    *Defalut vpnuser is testUserOne,passwd is testOnePass*
+    **HOST_IP :Public network must be your host IP**
+
+    **[$VPNUSER] & [$VPNPASS] env Optional,The function is to customize the user name and password to connect to the VPN service.**
+
+    **Defalut vpnuser is testUserOne,passwd is testOnePass**
 
 * eap-radius mode
 ```bash
 # docker run -itd --privileged -v /lib/modules:/lib/modules -e HOST_IP='Your's Public network IP' -e ACCOUNTING='yes' -e RADIUS_PORT='1812' -e RADIUS_SERVER='Your's radius server IP' -e RADIUS_SECRET='xxxxxxx' -e EAP_TYPE='eap-radius' -p 500:500/udp -p 4500:4500/udp --name=ikev2-vpn ikev2
 ```
-    *ACCOUNTING: eap-radius mode Required.Value must be 'yes'
-    *RADIUS_PORT: radius server running port. Required.
-    *RADIUS_SERVER: radius server ip. Required.
-    *RADIUS_SECRET: radius nas client psk. Required.
-    *EAP_TYPE: ikev2 auth mode. Required.
+    **ACCOUNTING: eap-radius mode Required.Value must be 'yes'**
+    **RADIUS_PORT: radius server running port. Required.**
+    **RADIUS_SERVER: radius server ip. Required.**
+    **RADIUS_SECRET: radius nas client psk. Required.**
+    **EAP_TYPE: ikev2 auth mode. Required.**
 
 3. Use the following command to generate the certificate and view the certificate contents
 ```Bash
@@ -105,6 +108,7 @@ example:<br>
 
 5. Connect vpn it！
 Open the network settings, create a new IKEv2 protocol VPN, enter the default VPN account and password, or use the custom user that starts the container to connect to VPN.
+
 Create new VPN method is not described here ^_^.
 
 ## Other Tips
@@ -113,10 +117,11 @@ Create new VPN method is not described here ^_^.
 # docker exec -it ikev2-vpn bash
 bash-4.3# vi /usr/local/etc/ipsec.secrets
 ```
-    **Pattern: testUserOne %any : EAP "testOnePass" **
+
+**Pattern: testUserOne %any : EAP "testOnePass" **
 
 
-```
+```bash
 bash-4.3# ipsec rereadsecrets
 ```
 
@@ -127,7 +132,7 @@ bash-4.3# ipsec rereadsecrets
 * Clients can connect without having to install a certificate
 * Support for adding and deleting user functions
 
-## Currently supported client device 
+## Currently supported client device
 Only test for the following client device system，You can test on the other system versions and feedback ！<br>
 `Mac`:	10.11.4<br>
 `iOS`:	10.2<br>
