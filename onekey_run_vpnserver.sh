@@ -6,7 +6,11 @@
 install_docker(){
   if python -mplatform | grep -qi ubuntu ; then
     export os_type=ubuntu
-  elif python -mplatform | grep -qi centos ; then
+  elif python -mplatform | grep -qi centos-6 ; then
+    echo "Error: Linux System is Centos6.x,Please update to Centos7.x"
+    echo "Exit install process..."
+    exit
+  elif python -mplatform | grep -qi centos-7 ; then
     export os_type=centos
   else
     echo -e 'Unknow system platform\n'
@@ -88,17 +92,25 @@ generate_cert(){
   echo "Note: Don't forget to set the cloud host's firewall to allow udp port 500 and port 4500 traffic ! ^_^"
 }
 
+install_dep_tools(){
+  echo "Install Dependent soft tools"
+  yum install bind-utils -y
+
+}
 
 # ensure installed docker engine
 command -v docker >/dev/null 2>&1
 
 if [ $? -eq 0 ] ; then
+  echo "Docker already exists !"
+  install_dep_tools
   running_docker
   pull_image
   run_vpnserver $@
   generate_cert
 else
   install_docker
+  install_dep_tools
   running_docker
   pull_image
   run_vpnserver $@
